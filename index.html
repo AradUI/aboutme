@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who I Am</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg:#ffffff;
+    --ink:#17171a;
+    --muted:#6e6e76;
+    --faint:#a8a8ae;
+    --hairline:#e4e4e7;
+    --accent:#9c7a34;
+    --accent-deep:#6e5620;
+    --accent-soft:#f6f0e0;
+    --gold-line: linear-gradient(90deg, transparent, #b8934a 15%, #b8934a 85%, transparent);
+    --maxw:680px;
+    --rail-w:220px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.62;
+    letter-spacing:-0.005em;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .gold-rule{
+    height:3px;
+    width:100%;
+    background:var(--gold-line);
+    opacity:0.9;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  a{color:inherit;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  /* ---------- Layout shell ---------- */
+
+  .shell{
+    display:grid;
+    grid-template-columns: var(--rail-w) 1fr;
+    max-width:1200px;
+    margin:0 auto;
+  }
+
+  @media (max-width: 860px){
+    .shell{grid-template-columns: 1fr;}
+  }
+
+  /* ---------- Left index rail (signature element) ---------- */
+
+  .rail{
+    position:sticky;
+    top:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:48px 0 40px 48px;
+    border-right:1px solid var(--hairline);
+  }
+
+  @media (max-width: 860px){
+    .rail{display:none;}
+  }
+
+  .rail-mark{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:-0.01em;
+  }
+
+  .rail-nav{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .rail-nav a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--faint);
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    transition:color 0.3s ease;
+  }
+
+  .rail-nav a .code{
+    color:var(--faint);
+    transition:color 0.3s ease;
+  }
+
+  .rail-nav a.active{color:var(--ink);}
+  .rail-nav a.active .code{color:var(--accent);}
+
+  .rail-nav a:hover{color:var(--ink);}
+
+  .rail-foot{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--faint);
+  }
+
+  /* ---------- Main column ---------- */
+
+  main{
+    padding: 0 32px;
+  }
+
+  .col{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding: 96px 0 64px;
+  }
+
+  @media (max-width: 640px){
+    .col{padding: 64px 0 48px;}
+  }
+
+  section{
+    padding: 72px 0;
+    border-bottom:1px solid var(--hairline);
+  }
+
+  section:last-of-type{border-bottom:none;}
+
+  section .eyebrow{
+    display:block;
+    margin-bottom:18px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding-top:0;
+    padding-bottom:72px;
+  }
+
+  .hero-mark{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:28px;
+    opacity:0;
+    animation:rise 0.7s ease forwards;
+  }
+
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(38px, 5.6vw, 58px);
+    line-height:1.14;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+    opacity:0;
+    animation:rise 0.8s ease forwards 0.12s;
+  }
+
+  h1 em{
+    font-style:italic;
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  .hero-sub{
+    margin-top:24px;
+    max-width:520px;
+    color:var(--muted);
+    font-size:16px;
+    opacity:0;
+    animation:rise 0.8s ease forwards 0.24s;
+  }
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ---------- Prose ---------- */
+
+  p{font-size:16px; color:var(--ink);}
+  p + p{margin-top:16px;}
+
+  .lede{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:23px;
+    line-height:1.48;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  .lede + p{
+    margin-top:20px;
+    color:var(--muted);
+  }
+
+  /* ---------- Focus stack (scroll-cover cards) ---------- */
+
+  .stack{
+    position:relative;
+    margin-top:8px;
+  }
+
+  .stack-card{
+    position:sticky;
+    top: calc(96px + (var(--i) * 16px));
+    z-index: var(--i);
+    background:#fff;
+    border:1px solid var(--hairline);
+    border-top:3px solid var(--accent);
+    padding:44px 40px 40px;
+    margin-bottom:26px;
+    min-height:260px;
+    box-shadow: 0 18px 40px rgba(20,20,20,0.06);
+    transition: box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  .stack-card:last-child{margin-bottom:0;}
+
+  .stack-num{
+    position:absolute;
+    top:-6px;
+    right:24px;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:96px;
+    line-height:1;
+    color:var(--ink);
+    opacity:0.045;
+    pointer-events:none;
+    user-select:none;
+  }
+
+  .stack-code{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    color:var(--accent-deep);
+    margin-bottom:14px;
+    display:block;
+  }
+
+  .stack-title{
+    font-family:'Fraunces',serif;
+    font-size:26px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin-bottom:14px;
+    max-width:80%;
+  }
+
+  .stack-desc{
+    font-size:16px;
+    color:var(--muted);
+    max-width:460px;
+    line-height:1.6;
+  }
+
+  @media (max-width: 640px){
+    .stack-card{padding:32px 24px 28px;}
+    .stack-num{font-size:64px; right:16px;}
+    .stack-title{font-size:22px; max-width:100%;}
+  }
+
+  /* ---------- Principles ---------- */
+
+  .principles{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:32px;
+  }
+
+  @media (max-width: 640px){
+    .principles{grid-template-columns:1fr; gap:36px;}
+  }
+
+  .principle-title{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:18px;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+
+  .principle-desc{
+    font-size:14.5px;
+    color:var(--muted);
+  }
+
+  /* ---------- Closing ---------- */
+
+  .closing{
+    border-bottom:none;
+  }
+
+  .closing .lede{
+    max-width:560px;
+  }
+
+  .signoff{
+    margin-top:40px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+
+  .signoff-mark{
+    width:34px; height:34px;
+    border:1px solid var(--hairline);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--accent);
+  }
+
+  .signoff-text{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* ---------- Mobile top label (replaces rail) ---------- */
+
+  .mobile-top{
+    display:none;
+    padding:32px 32px 0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  @media (max-width: 860px){
+    .mobile-top{display:block;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="gold-rule"></div>
+<div class="mobile-top">Who I Am</div>
+
+<div class="shell">
+
+  <!-- Signature left index rail -->
+  <aside class="rail">
+    <div class="rail-mark">W.I.A.</div>
+    <nav class="rail-nav" id="railNav">
+      <a href="#approach" data-target="approach"><span class="code">01</span>Approach</a>
+      <a href="#focus" data-target="focus"><span class="code">02</span>Focus</a>
+      <a href="#work" data-target="work"><span class="code">03</span>How I Work</a>
+      <a href="#closing" data-target="closing"><span class="code">04</span>Closing</a>
+    </nav>
+    <div class="rail-foot">Est. this page —<br>updated as I grow.</div>
+  </aside>
+
+  <main>
+    <div class="col">
+
+      <!-- Hero -->
+      <section class="hero" style="border-bottom:none;">
+        <div class="hero-mark">Hello World</div>
+        <h1>Curious by nature.<br>Precise by <em>choice</em>.<br>Never finished, by design.</h1>
+        <p class="hero-sub">It's a record of how I think, what I build, and the standard I hold the work to.</p>
+      </section>
+
+      <!-- Approach -->
+      <section id="approach">
+        <span class="eyebrow">01 — Approach</span>
+        <p class="lede">I don't separate the analytical from the creative. I've never needed to.</p>
+        <p>Finance, business, technology, design, community leadership — different instruments, same habit: taking an idea and giving it enough discipline to become real. I've led online communities, built the moderation and operational systems that keep them functioning, shipped websites and digital experiences, and used automation to make all of it faster and more reliable.</p>
+        <p>Communication, leadership, and technical skill get built in parallel, not in sequence — none of them hold up well alone. The direction is commerce and finance. The method is practical projects, not theory.</p>
+      </section>
+
+      <!-- Focus areas -->
+      <section id="focus">
+        <span class="eyebrow">02 — Areas of Focus</span>
+        <div class="stack">
+
+          <div class="stack-card" style="--i:1;">
+            <span class="stack-num">01</span>
+            <span class="stack-code">FIN — FINANCE &amp; COMMERCE</span>
+            <div class="stack-title">Where discipline turns into direction.</div>
+            <div class="stack-desc">I read numbers for what they mean, not what they promise. Commerce and finance are the long-term line everything else in my work bends toward.</div>
+          </div>
+
+          <div class="stack-card" style="--i:2;">
+            <span class="stack-num">02</span>
+            <span class="stack-code">BIZ — BUSINESS</span>
+            <div class="stack-title">An idea is worth nothing until it survives execution.</div>
+            <div class="stack-desc">I build the structure underneath — the plan, the process, the follow-through — that turns a good idea into something that actually ships.</div>
+          </div>
+
+          <div class="stack-card" style="--i:3;">
+            <span class="stack-num">03</span>
+            <span class="stack-code">TECH — TECHNOLOGY &amp; AUTOMATION</span>
+            <div class="stack-title">Efficiency is a form of respect.</div>
+            <div class="stack-desc">Websites, management systems, automation — built to remove friction from real work, not to show off. If it doesn't save time, it doesn't ship.</div>
+          </div>
+
+          <div class="stack-card" style="--i:4;">
+            <span class="stack-num">04</span>
+            <span class="stack-code">DSGN — DESIGN</span>
+            <div class="stack-title">Craft over decoration.</div>
+            <div class="stack-desc">If a detail doesn't earn its place on the page, it doesn't belong there. I design visual content and digital experiences with restraint, not noise.</div>
+          </div>
+
+          <div class="stack-card" style="--i:5;">
+            <span class="stack-num">05</span>
+            <span class="stack-code">COM — COMMUNITY LEADERSHIP</span>
+            <div class="stack-title">Systems outlast personalities.</div>
+            <div class="stack-desc">I've led online communities and built the moderation and operational systems that let them run well — with or without me in the room.</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- How I work -->
+      <section id="work">
+        <span class="eyebrow">03 — How I Work</span>
+        <div class="principles">
+          <div>
+            <div class="principle-title">Discipline</div>
+            <div class="principle-desc">Motivation fades. Systems don't. I build for the days I don't feel like it.</div>
+          </div>
+          <div>
+            <div class="principle-title">Learning</div>
+            <div class="principle-desc">Finishing isn't the point — understanding is. I stay with a project until I actually know it.</div>
+          </div>
+          <div>
+            <div class="principle-title">Execution</div>
+            <div class="principle-desc">An unfinished idea is worth nothing. I care about what ships, not what sounds good.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Closing -->
+      <section id="closing" class="closing">
+        <span class="eyebrow">04 — Closing</span>
+        <p class="lede">None of this is finished, and it isn't meant to be. Every website, every system, every community I've helped run makes the same argument again: discipline and follow-through outlast talent alone.</p>
+        <div class="signoff">
+          <div class="signoff-mark">＊</div>
+          <div class="signoff-text">Still building. Still sharpening.</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script>
+  // Active-state tracking for the left index rail
+  const links = document.querySelectorAll('.rail-nav a');
+  const sections = Array.from(links).map(l => document.getElementById(l.dataset.target));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = document.querySelector('.rail-nav a[data-target="' + entry.target.id + '"]');
+      if(entry.isIntersecting){
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(s => { if(s) observer.observe(s); });
+
+  // Stacking-card cover effect: as each next card approaches, the
+  // current one dims and settles slightly, like a page being turned over.
+  const stackCards = Array.from(document.querySelectorAll('.stack-card'));
+
+  function updateStack(){
+    stackCards.forEach((card, i) => {
+      const next = stackCards[i + 1];
+      if(!next) return;
+      const nextRect = next.getBoundingClientRect();
+      const nextTop = parseFloat(getComputedStyle(next).top) || 0;
+      const travel = 260; // px of scroll distance over which the cover happens
+      const progress = 1 - Math.min(Math.max((nextRect.top - nextTop) / travel, 0), 1);
+      card.style.transform = `scale(${1 - progress * 0.035}) translateY(${-progress * 8}px)`;
+      card.style.filter = `brightness(${1 - progress * 0.1})`;
+    });
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if(!ticking){
+      requestAnimationFrame(() => { updateStack(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive:true });
+  window.addEventListener('resize', updateStack);
+  updateStack();
+</script>
+
+</body>
+</html>
